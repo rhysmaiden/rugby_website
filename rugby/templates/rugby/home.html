@@ -1,0 +1,77 @@
+{% extends "rugby/header.html" %}
+
+{% block content %}
+
+{% if matches|length > 0 %}
+<h5>Matches</h5>
+{% endif %}
+{% if matches|length == 0 %}
+<h5>Match Highlights</h5>
+{% endif %}
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<script>
+function wrong_team(id) {
+
+  console.log(id);
+  var data = {'video_link': id};
+
+  URL = document.URL;
+
+  $.post(URL, data, function(response){
+      if(response === 'success'){ var x =0; }
+      else{ var x =0; }
+  });
+}
+
+</script>
+
+<div class="row">
+
+  {% for m in matches %}
+    <div class="card col-md-3 card col-lg-3 col-x">
+        <div class="card-image waves-effect waves-block waves-light">
+          <iframe id="d-youtube-player" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player" width="100%" height="200" src="{{ m.video_link }}?&amp;showinfo=0&amp;color=white&amp;iv_load_policy=3&amp;autoplay=0&amp;modestbranding=1&amp;enablejsapi=1&amp;origin=http%3A%2F%2Ffreegifmaker.me&amp;widgetid=1"></iframe>
+        </div>
+        <div class="card-content" style="text-align:center">
+          <p><a href="{{m.match_link}}">{{m.name}}</a></p>
+        </div>
+        <div class="card-reveal">
+          <div style="width:100%;height:0px;position:relative;padding-bottom:56.327%;"><iframe src="" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;"></iframe></div>
+          <span class="card-title grey-text text-darken-4">Johnny May<i class="material-icons right">close</i></span>
+
+        </div>
+    </div>
+  {% endfor %}
+</div>
+<h5>Tries</h5>
+<div class ="row">
+  {% for t in tries %}
+    <div class="card col-md-3 card col-lg-3 col-x">
+        <div class="card-image waves-effect waves-block waves-light">
+          <iframe id="d-youtube-player" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player" width="100%" height="200" src="{{ t.video_link }}&amp;showinfo=0&amp;color=white&amp;iv_load_policy=3&amp;autoplay=0&amp;modestbranding=1&amp;enablejsapi=1&amp;origin=http%3A%2F%2Ffreegifmaker.me&amp;widgetid=1"></iframe>
+        </div>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4"><a href="{{t.player_link}}" style="font-size:1.5vw; white-space: nowrap;">{{t.player_name}}</a></span>
+          
+
+          <p><a href="{{t.match_link}}">{{t.try_match}}</a></p>
+          <button onclick="wrong_team('{{t.video_link}}')">Switch team</button>
+        </div>
+        <div class="card-reveal">
+          <div style="width:100%;height:0px;position:relative;padding-bottom:56.327%;"><iframe src="" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;"></iframe></div>
+          <span class="card-title grey-text text-darken-4">Johnny May<i class="material-icons right">close</i></span>
+
+        </div>
+    </div>
+  {% endfor %}
+
+</div>
+
+</div>>
+
+</div>
+
+{% endblock %}

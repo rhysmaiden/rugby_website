@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Clip Rugby</title>
+	<meta charset="utf-8" />
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'rugby/css/bootstrap.min.css' %}" type = "text/css"/>
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+
+	<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+	<style type="text/css">
+		html,
+		body {
+		  height:100%
+		}
+
+		.nav-wrapper{
+			background-color: #3c6291;
+		}
+
+		.collection-item {
+			padding-top: 0px !important;
+			padding-bottom: 0px !important;
+		}
+	</style>
+</head>
+
+<nav>
+    <div class="nav-wrapper">
+      <a href="http://127.0.0.1:8000/team/" class="brand-logo center">Clip Rugby</a>
+      <ul class="left hide-on-med-and-down">
+      <div class="input-field col s12">
+          <input type="text" id="autocomplete-input" class="autocomplete">
+        </div>
+        
+				
+      </ul>
+    </div>
+  </nav>
+
+<body class="body" style="background-color:#f6f6f6">
+	<div class="container-fluid" style="min-height:95%; ">
+
+		<div class="row">
+
+		  <div class="col-sm-3">
+		  <br><br>
+		  	<h6>Leagues</h6>
+		  	<div class="collection">
+		  		<a href="http://127.0.0.1:8000/league/3" class="collection-item">International</a>
+		        <a href="http://127.0.0.1:8000/league/2" class="collection-item">Super Rugby</a>
+		        <a href="http://127.0.0.1:8000/league/3" class="collection-item">Aviva Premiership</a>
+		        <a href="http://127.0.0.1:8000/league/4" class="collection-item">Pro 14</a>
+		      </div>
+		  	<h6>International Teams</h6>
+		  	<div class="collection">
+		  		<a href="http://127.0.0.1:8000/team/45" class="collection-item">New Zealand</a>
+		        <a href="http://127.0.0.1:8000/team/52" class="collection-item">Wales</a>
+		        <a href="http://127.0.0.1:8000/team/49" class="collection-item">England</a>
+		        <a href="http://127.0.0.1:8000/team/50" class="collection-item">Ireland</a>
+		        <a href="http://127.0.0.1:8000/team/46" class="collection-item">South Africa</a>
+		        <a href="http://127.0.0.1:8000/team/47" class="collection-item">Australia</a>
+		        <a href="http://127.0.0.1:8000/team/53" class="collection-item">France</a>
+		        <a href="http://127.0.0.1:8000/team/55" class="collection-item">Japan</a>
+		        <a href="http://127.0.0.1:8000/team/51" class="collection-item">Scotland</a>
+		        <a href="http://127.0.0.1:8000/team/48" class="collection-item">Argentina</a>
+		        <a href="http://127.0.0.1:8000/team/56" class="collection-item">Fiji</a>
+		        <a href="http://127.0.0.1:8000/team/54" class="collection-item">Italy</a>
+		        <a href="http://127.0.0.1:8000/team/61" class="collection-item">Georgia</a>
+		        <a href="http://127.0.0.1:8000/team/58" class="collection-item">Samoa</a>
+		        <a href="http://127.0.0.1:8000/team/59" class="collection-item">USA</a>
+		        <a href="http://127.0.0.1:8000/team/57" class="collection-item">Tonga</a>
+		        <a href="http://127.0.0.1:8000/team/83" class="collection-item">Uruguay</a>
+		        <a href="http://127.0.0.1:8000/team/60" class="collection-item">Romania</a>
+		      </div>
+		      <h6>Aviva Premiership</h6>
+		  	<div class="collection">
+		  		<a href="http://127.0.0.1:8000/team/27" class="collection-item">Gloucester</a>
+		        <a href="http://127.0.0.1:8000/team/23" class="collection-item">Harlequins</a>
+		        <a href="http://127.0.0.1:8000/team/28" class="collection-item">Sale Sharks</a>
+		        <a href="http://127.0.0.1:8000/team/31" class="collection-item">Northampton Saints</a>
+		        <a href="http://127.0.0.1:8000/team/29" class="collection-item">Saracens</a>
+		        <a href="http://127.0.0.1:8000/team/80" class="collection-item">Bristol Bears</a>
+		        <a href="http://127.0.0.1:8000/team/30" class="collection-item">Leicester Tigers</a>
+		        <a href="http://127.0.0.1:8000/team/24" class="collection-item">Newcastle Falcons</a>
+		        <a href="http://127.0.0.1:8000/team/21" class="collection-item">Exeter Chiefs</a>
+		        <a href="http://127.0.0.1:8000/team/32" class="collection-item">Worcester Warriors</a>
+		        <a href="http://127.0.0.1:8000/team/26" class="collection-item">Bath</a>
+		        <a href="http://127.0.0.1:8000/team/25" class="collection-item">London Irish</a>
+		        <a href="http://127.0.0.1:8000/team/22" class="collection-item">Wasps</a>
+		      </div>
+
+		      <h6>Super Rugby</h6>
+		  	<div class="collection">
+		  		<a href="http://127.0.0.1:8000/team/3" class="collection-item">Waratahs</a>
+		        <a href="http://127.0.0.1:8000/team/4" class="collection-item">Reds</a>
+		        <a href="http://127.0.0.1:8000/team/7" class="collection-item">Brumbies</a>
+		        <a href="http://127.0.0.1:8000/team/6" class="collection-item">Rebels</a>
+		        <a href="http://127.0.0.1:8000/team/20" class="collection-item">Sunwolves</a>
+		        <a href="http://127.0.0.1:8000/team/11" class="collection-item">Chiefs</a>
+		        <a href="http://127.0.0.1:8000/team/9" class="collection-item">Highlanders</a>
+		        <a href="http://127.0.0.1:8000/team/8" class="collection-item">Crusaders</a>
+		        <a href="http://127.0.0.1:8000/team/10" class="collection-item">Hurricanes</a>
+		        <a href="http://127.0.0.1:8000/team/12" class="collection-item">Blues</a>
+		        <a href="http://127.0.0.1:8000/team/13" class="collection-item">Sharks</a>
+		        <a href="http://127.0.0.1:8000/team/14" class="collection-item">Bulls</a>
+		        <a href="http://127.0.0.1:8000/team/16" class="collection-item">Lions</a>
+		        <a href="http://127.0.0.1:8000/team/15" class="collection-item">Stormers</a>
+		        <a href="http://127.0.0.1:8000/team/19" class="collection-item">Jaguares</a>
+		      </div>
+		  </div>
+		  
+		  <div class="col-sm-9">
+
+			<div class='container-fluid'>
+			<br><br>
+			   {% block content %}
+			   {% endblock %}
+			</div>
+		  </div>
+		</div>
+	</div>
+	
+
+</body>
+
+</html>
