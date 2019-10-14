@@ -25,7 +25,7 @@ SECRET_KEY = '(brq2zg-&+h&y0h7&oy4%=zif+24s_sd59834%j4(5322^b%xx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rhysmaiden.pythonanywhere.com']
 
 
 # Application definition
@@ -121,3 +121,5 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/rhysmaiden/rugby_website/rugby/static/'
+

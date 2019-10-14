@@ -38,7 +38,7 @@ def search(request):
 
 
 class TryFormView(generic.ListView):
-	
+
 	template_name = "rugby/try_form.html"
 
 	def get_queryset(self):
@@ -149,10 +149,10 @@ class TeamView(DetailView):
 
 	def post(self, request, *args, **kwargs):
 
-		
+
 		video_link = request.POST.getlist('video_link')[0]
 		print(video_link)
-		
+
 		try_object = Try.objects.filter(video_link=video_link)[0]
 		player_object = try_object.player
 		match_object = try_object.match
@@ -210,7 +210,7 @@ class LeagueView(DetailView):
 			"matches":[]
 		}
 
-	
+
 		my_context["tries"] = prepareTryData(league_request=individual_league)
 		my_context["matches"] = prepareMatchData(league_request=individual_league)
 
@@ -271,7 +271,7 @@ def tryprocessing(request):
 	for t in tries:
 		if "streamable" in t.video_link:
 			t.delete()
-	
+
 
 	for m in all_matches:
 		if "youtube" not in m.video_link:
@@ -285,7 +285,7 @@ def tryprocessing(request):
 	#Get the latest match
 	latest_match = Match.objects.filter(video_link_found=1,match_completely_processed=0,error=0,date__year='2019',league_id=superleague).order_by('-date')[0]
 	my_context["match"] = latest_match
-	
+
 	if request.method =="POST":
 
 		if "finished" in request.POST:
@@ -295,7 +295,7 @@ def tryprocessing(request):
 			latest_match.error = 1
 			latest_match.save()
 		else:
-	
+
 			player_name = request.POST['player_name']
 			start_time_minute = request.POST['start_time_minute']
 			start_time_second = request.POST['start_time_second']
@@ -314,14 +314,14 @@ def tryprocessing(request):
 			team_from_id = Team.objects.filter(id=team_id)[0]
 
 			try_object = Try(match=latest_match,player=try_scorer_object,video_link=new_link,start_time=start_time,end_time=end_time,team=team_from_id)
-			
+
 			if int(team_id) < 63 and int(team_id) > 44:
 				try_scorer_object.internation_team = team_from_id
 				try_scorer_object.save()
 
 			try_object.save()
 
-			
+
 			return HttpResponse('success') # if everything
 
 		return render(request, 'rugby/tryprocessing.html', {})
@@ -366,13 +366,13 @@ def prepareTryData(player_request=None, match_request=None, team_request=None, l
 		tryBlock = templateInfo()
 		tryBlock.player_name = t.player.name
 		tryBlock.player_pic = t.player.picture
-		
-		tryBlock.player_link = "http://127.0.0.1:8000/player/" + str(t.player.id)
+
+		tryBlock.player_link = "/player/" + str(t.player.id)
 		tryBlock.player_team = t.player.team.team_name
-		tryBlock.player_team_link = "http://127.0.0.1:8000/team/" + str(t.player.team.id)
+		tryBlock.player_team_link = "/team/" + str(t.player.team.id)
 		tryBlock.try_url = t.video_link
 		tryBlock.try_match = t.match
-		tryBlock.match_link = "http://127.0.0.1:8000/match/" + str(t.match.id)
+		tryBlock.match_link = "/match/" + str(t.match.id)
 		tryBlock.video_link = t.video_link
 
 		tries_for_template.append(tryBlock)
@@ -393,7 +393,7 @@ def prepareMatchData(player_request=None, match_request=None, team_request=None,
 	else:
 		matches = Match.objects.all().order_by('-date')[:8]
 
-	
+
 	matches_for_template = []
 
 	print(len(matches))
@@ -404,15 +404,15 @@ def prepareMatchData(player_request=None, match_request=None, team_request=None,
 	for m in matches:
 		matchBlock = matchInfo()
 		matchBlock.video_link = youtube_to_embed(m.video_link)
-		matchBlock.match_link = "http://127.0.0.1:8000/match/" + str(m.id)
+		matchBlock.match_link = "/match/" + str(m.id)
 		matchBlock.name = m
 		matches_for_template.append(matchBlock)
 
 	return matches_for_template
 
-	
+
 def minutes_and_seconds_to_seconds(minutes,seconds):
-	
+
 	seconds_from_minutes = minutes * 60
 	return seconds + seconds_from_minutes
 
