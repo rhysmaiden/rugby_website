@@ -2,10 +2,11 @@
 
 {% block content %}
 <h6>{{amount}}</h6>
+<h6>{{try_count}}</h6>
 <h2>{{match}}</h2>
 <h2>{{match.date}}</h2>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <script type="text/javascript">
 
@@ -13,7 +14,7 @@ var player_name = "";
 
 $(document).ready(function() {
 
-	
+
 
 	var data = [];
 
@@ -22,14 +23,14 @@ $(document).ready(function() {
 	//console.log({{object_list.player.name}});
 	console.log("Hello")
 {% endfor %}
-	
+
 	$("input.autocomplete").autocomplete({
 		minLength:2,
 		source:data,
 		select: function(event,ui) {
 			player_name = ui.item.label
 		}
-	}); 
+	});
 
 
 });
@@ -73,11 +74,11 @@ function reset() {
 	seconds = document.getElementsByClassName("seconds");
 
 	for (i = 0; i < minutes.length; i++) {
-		minutes[i].style.backgroundColor = "white";			
+		minutes[i].style.backgroundColor = "white";
 	}
 
 	for (i = 0; i < seconds.length; i++) {
-		seconds[i].style.backgroundColor = "white";			
+		seconds[i].style.backgroundColor = "white";
 	}
 
 	start_time_picker = true;
@@ -92,7 +93,7 @@ function submitTry(team_id) {
 	console.log(player_name);
 
 	var data = {'player_name': player_name,'start_time_minute':start_time_minute,'start_time_second':start_time_second,'end_time_minute':end_time_minute,'end_time_second':end_time_second,'team_id':team_id};
-	URL = 'http://127.0.0.1:8000/tryprocessing/'
+	URL = '/tryprocessing/'
     $.post(URL, data, function(response){
         if(response === 'success'){ var x =0; }
         else{ var x =0; }
@@ -101,7 +102,7 @@ function submitTry(team_id) {
 
 function finishedMatch() {
 	var data = {'finished':1};
-	URL = 'http://127.0.0.1:8000/tryprocessing/'
+	URL = '/tryprocessing/'
     $.post(URL, data, function(response){
         if(response === 'success'){ location.reload(); }
         else{ location.reload(); }
@@ -110,7 +111,7 @@ function finishedMatch() {
 
 function error() {
 	var data = {'error':1};
-	URL = 'http://127.0.0.1:8000/tryprocessing/'
+	URL = '/tryprocessing/'
     $.post(URL, data, function(response){
         if(response === 'success'){ location.reload(); }
         else{ location.reload(); }
@@ -126,7 +127,7 @@ function error() {
 <div class="col s6">
 	<div class="row">
 		<div class="col s12">
-			<div id="1" class="col s1 min" onclick="clicked_box(this)">0</div>
+		  <div id="1" class="col s1 min" onclick="clicked_box(this)">0</div>
 	      <div id="1" class="col s1 min" onclick="clicked_box(this)">1</div>
 	      <div id="1" class="col s1 min" onclick="clicked_box(this)">2</div>
 	      <div id="1" class="col s1 min" onclick="clicked_box(this)">3</div>
@@ -138,6 +139,18 @@ function error() {
 	      <div id="1" class="col s1 min" onclick="clicked_box(this)">9</div>
 	      <div id="1" class="col s1 min" onclick="clicked_box(this)">10</div>
 	      <div id="1" class="col s1 min" onclick="clicked_box(this)">11</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">12</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">13</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">14</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">15</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">16</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">17</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">18</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">19</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">20</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">21</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">22</div>
+	      <div id="1" class="col s1 min" onclick="clicked_box(this)">23</div>
 	    </div>
 	</div>
 	<div class="row">
@@ -203,7 +216,7 @@ function error() {
 	      <div id="1" class="col s1 seconds" onclick="clicked_box(this)">58</div>
 	      <div id="1" class="col s1 seconds" onclick="clicked_box(this)">59</div>
 	    </div>
-	    
+
     </div>
     <div class="row">
     	<div class="col s2">
@@ -222,7 +235,7 @@ function error() {
     		<button onclick="finishedMatch()">Finished</button>
     	</div>
     </div>
-    
+
 </div>
 <div class="col s6">
 	<div class="col s2">
@@ -237,7 +250,7 @@ function error() {
 </div>
 
 
-    
+
 </div>
 
     <div class="col s6"></div>
@@ -259,7 +272,7 @@ display:none;
  }
 
  .col {
- 	
+
  	text-align: center;
  	padding-left: 0px !important;
  	padding-right: 0px !important;

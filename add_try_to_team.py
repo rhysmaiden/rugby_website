@@ -19,85 +19,14 @@ from rugby.models import Player
 from rugby.models import Try
 from rugby.models import League
 
-matches = Match.objects.all()
+team = Team.objects.filter(team_name="Australia")[0]
 
-ints = ["New Zealand","Wales","England","Ireland","South Africa","Australia",
-"France","Japan","Scotland","Argentina","Fiji","Italy","Georgia","Samoa",
-"USA","Tonga","Spain","Uruguay","Romania","Canada","Namibia","Russia"]
+tries = Try.objects.filter(team=team,match__date__year='2019').order_by('-match__date')
 
-prem = ["Worcester Warriors","Northampton Saints","Leicester Tigers","Saracens",
-"Sale Sharks","Gloucester","Bath","London Irish","Newcastle Falcons","Harlequins","Wasps",
-"Exeter Chiefs"]
+table = "**" + "Tries by Australia in 2019" + "**\n"
+table += "|Match|Player|Video Link|\n:--|:--|"
 
-pro_14 = ["Zebre","Benetton Treviso","Edinburgh","Glasgow Warriors","Cardiff Blues",
-"Dragons","Ospreys","Scarlets","Connacht","Ulster","Munster","Leinster"]
+for t in tries:
+    table += "\n|" + str(t.match) + "|" + t.player.name + "|" + t.video_link
 
-teams = Team.objects.all()
-
-for t in teams:
-	if t.team_name in ints:
-		t.league_id = League.objects.filter(name="International")[0]
-	elif t.team_name in prem:
-		t.league_id = League.objects.filter(name="Aviva Premiership")[0]
-	elif t.team_name in prem:
-		t.league_id = League.objects.filter(name="Pro 14")[0]
-
-	t.save()
-
-
-
-for m in matches:
-	#print(m.home_team)
-	m.league_id = m.home_team.league_id
-	m.save()
-
-
-
-
-
-
-# international_league = League.objects.filter(name="International")[0]
-
-# matches = Match.objects.filter(match_completely_processed=1).order_by('-date')
-# tries = Try.objects.all()
-
-
-
-# for m in matches:
-# 	try_found = False
-# 	for t in tries:
-
-# 		if t.match == m:
-# 			try_found=True
-# 			break
-# 	if not try_found:
-# 		m.match_completely_processed = 0
-# 		m.save()
-
-# for t in teams:
-# 	if t.team_name in ints:
-# 		t.league = "international"
-# 		t.league_id = international_league
-# 		t.save()
-
-
-
-# for t in tries:
-# 	if t.match.league == "international":
-# 		if ints.index(t.match.home_team.team_name) < ints.index(t.match.away_team.team_name):
-# 			t.team = t.match.home_team
-# 			print(t.team)
-# 		else:
-# 			t.team = t.match.away_team
-# 			print(t.team)
-# 	else:
-# 		t.team = t.player.team
-
-# 	t.ratings_average = 0
-# 	t.save()
-
-# for trie in tries:
-# 	if trie.team_id == 1:
-# 		trie.team_id = 84
-		#trie.save()
-	#if trie.match.league == "international":
+print(table)

@@ -44,7 +44,7 @@ class Match(models.Model) :
     error = models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.home_team.team_name) + " vs " + str(self.away_team.team_name)
+        return str(self.home_team.team_name) + " vs " + str(self.away_team.team_name) + " - " + str(self.date.date())
 
 class Player(models.Model) :
     name = models.TextField()

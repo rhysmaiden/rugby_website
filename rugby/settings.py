@@ -25,7 +25,7 @@ SECRET_KEY = '(brq2zg-&+h&y0h7&oy4%=zif+24s_sd59834%j4(5322^b%xx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rhysmaiden.pythonanywhere.com']
+ALLOWED_HOSTS = ['rhysmaiden.pythonanywhere.com','www.therugbyvault.com']
 
 
 # Application definition

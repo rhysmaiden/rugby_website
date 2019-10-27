@@ -26,47 +26,51 @@ def make_soup(url):
 	soupdata = BeautifulSoup(thepage, "html.parser")
 	return soupdata
 
-for i in range(0,360):
+for i in range(0,7):
 
-	date = datetime.today() - timedelta(days=i)
-	print(date)
-	url_date = date.strftime('%Y%m%d') 
+    try:
 
-
-	url = "https://www.espn.com.au/rugby/fixtures/_/date/" + url_date
-	soup = make_soup(url)
-
-	a_teams = soup.findAll('td', {'class': 'team-a'})
-	b_teams = soup.findAll('td', {'class': 'team-b'})
+    	date = datetime.today() - timedelta(days=i)
+    	print(date)
+    	url_date = date.strftime('%Y%m%d')
 
 
-	for a,b in zip(a_teams,b_teams):
-		team_one = a.find('abbr').get('title')
-		team_two = b.find('abbr').get('title')
+    	url = "https://www.espn.com.au/rugby/fixtures/_/date/" + url_date
+    	soup = make_soup(url)
 
-		try:
-			team_one_obj = Team.objects.filter(team_name=team_one)[0]
-			team_two_obj = Team.objects.filter(team_name=team_two)[0]
+    	a_teams = soup.findAll('td', {'class': 'team-a'})
+    	b_teams = soup.findAll('td', {'class': 'team-b'})
 
 
+    	for a,b in zip(a_teams,b_teams):
+    		team_one = a.find('abbr').get('title')
+    		team_two = b.find('abbr').get('title')
 
-		except:
-			print("FAILED: ",team_one,team_two)
-			continue
+    		try:
+    			team_one_obj = Team.objects.filter(team_name=team_one)[0]
+    			team_two_obj = Team.objects.filter(team_name=team_two)[0]
 
-		
-		
 
-		existing = Match.objects.filter(home_team=team_one_obj,away_team=team_two_obj).order_by('-date')
 
-		if len(existing) > 0:
-			if abs(existing[0].date - date) < timedelta(days=4):
-				print("EXISTS: ",team_one,team_two)
-				continue
+    		except:
+    			print("FAILED: ",team_one,team_two)
+    			continue
 
-		print("NEW: ",team_one,team_two)
 
-		new_match = Match(home_team=team_one_obj,away_team=team_two_obj,date=date,home_score=0,away_score=0,league_id=team_one_obj.league_id)
-		new_match.save()
+
+
+    		existing = Match.objects.filter(home_team=team_one_obj,away_team=team_two_obj).order_by('-date')
+
+    		if len(existing) > 0:
+    			if abs(existing[0].date - date) < timedelta(days=4):
+    				print("EXISTS: ",team_one,team_two)
+    				continue
+
+    		print("NEW: ",team_one,team_two)
+
+    		new_match = Match(home_team=team_one_obj,away_team=team_two_obj,date=date,home_score=0,away_score=0,league_id=team_one_obj.league_id)
+    		new_match.save()
+    except:
+        print("Page failed")
 
 
