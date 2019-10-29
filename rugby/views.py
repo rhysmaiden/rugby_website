@@ -186,7 +186,7 @@ def tryprocessing(request):
         "try_count":""
     }
 
-    my_context["amount"] = len(Match.objects.filter(video_link_found=1,match_completely_processed=0,error=0,date__year='2019'))
+    my_context["amount"] = len(Match.objects.filter(video_link_found=1,match_completely_processed=0,error=0))
     my_context["try_count"] = len(Try.objects.all())
 
     tries = Try.objects.all()
@@ -197,7 +197,7 @@ def tryprocessing(request):
     international_league = League.objects.filter(name="International")[0]
 
     #Get the latest match
-    latest_match = Match.objects.filter(video_link_found=1,match_completely_processed=0,error=0).exclude(league_id=aviva_league).order_by('-date')[0]
+    latest_match = Match.objects.filter(video_link_found=1,match_completely_processed=0,error=0,league_id=international_league).exclude(league_id=aviva_league).order_by('-date')[0]
     my_context["match"] = latest_match
 
     if request.method =="POST":
@@ -304,7 +304,7 @@ def prepareMatchData(player_request=None, match_request=None, team_request=None,
     elif league_request is not None:
         matches = Match.objects.filter(league_id=league_request,error=0).order_by('-date')[:8]
     else:
-        matches = Match.objects.filter(error=0).order_by('-date')[:8]
+        matches = Match.objects.filter(error=0,match_completely_processed=1).order_by('-date')[:8]
 
 
     matches_for_template = []
@@ -314,7 +314,10 @@ def prepareMatchData(player_request=None, match_request=None, team_request=None,
 
     for m in matches:
         matchBlock = matchInfo()
-        matchBlock.video_link = youtube_to_embed(m.video_link)
+        try:
+            matchBlock.video_link = youtube_to_embed(m.video_link)
+        except:
+            continue
         matchBlock.match_link = "/match/" + str(m.id)
         matchBlock.home_team = m.home_team.team_name
         matchBlock.away_team = m.away_team.team_name

@@ -16,7 +16,9 @@ from rugby.models import Match
 
 
 enddate = datetime.today()
-startdate = enddate - timedelta(days=1000)
+startdate = enddate - timedelta(days=10)
+
+print(startdate,enddate)
 matches = Match.objects.filter(video_link_found=0,date__range=[startdate, enddate])
 
 for match in matches:
@@ -38,7 +40,7 @@ for match in matches:
             foundVideo = True
             break
         else:
-            print(video.video_id,video_date)
+            pass
 
     if foundVideo:
         match.video_link_found = 1
