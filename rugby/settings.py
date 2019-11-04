@@ -25,7 +25,7 @@ SECRET_KEY = '(brq2zg-&+h&y0h7&oy4%=zif+24s_sd59834%j4(5322^b%xx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rhysmaiden.pythonanywhere.com','www.therugbyvault.com']
+ALLOWED_HOSTS = ['rhysmaiden.pythonanywhere.com','www.therugbyvault.com','127.0.0.1']
 
 
 # Application definition
@@ -39,7 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rugby',
     'mathfilters',
-    'materialize'
+    'materialize',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+     'allauth.socialaccount.providers.google',
+     'allauth.socialaccount.providers.reddit',
 ]
 
 MIDDLEWARE = [
@@ -65,10 +72,21 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+)
 
 WSGI_APPLICATION = 'rugby.wsgi.application'
 
@@ -122,4 +140,6 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/home/rhysmaiden/rugby_website/rugby/static/'
+
+SITE_ID = 1
 

@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^player/(?P<pk>[0-9]+)/$', PlayerView.as_view(template_name="rugby/home.html")),
     url(r'^match/(?P<pk>[0-9]+)/$', MatchView.as_view(template_name="rugby/home.html")),
     url(r'^league/(?P<pk>[0-9]+)/$', LeagueView.as_view(template_name="rugby/home.html")),
+    url(r'^accounts/', include('allauth.urls')),
 ]
