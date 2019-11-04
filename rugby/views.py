@@ -197,7 +197,7 @@ def tryprocessing(request):
     international_league = League.objects.filter(name="International")[0]
 
     #Get the latest match
-    latest_match = Match.objects.filter(video_link_found=1,match_completely_processed=0,error=0,league_id=international_league).exclude(league_id=aviva_league).order_by('-date')[0]
+    latest_match = Match.objects.filter(video_link_found=1,match_completely_processed=0,error=0).exclude(league_id=aviva_league).order_by('-date')[0]
     my_context["match"] = latest_match
 
     if request.method =="POST":
@@ -354,7 +354,11 @@ def minutes_and_seconds_to_seconds(minutes,seconds):
     return seconds + seconds_from_minutes
 
 def add_times_to_video_link(video_link,start_time,end_time):
-    link = "https://www.youtube.com/embed/" + video_link.split("=")[1] + "?start=" + str(start_time) + "&end=" + str(end_time) + ";rel=0"
+    try:
+        link = "https://www.youtube.com/embed/" + video_link.split("=")[1] + "?start=" + str(start_time) + "&end=" + str(end_time) + ";rel=0"
+    except:
+        return video_link
+
     return link
 
 def youtube_to_embed(original):

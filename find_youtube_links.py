@@ -16,15 +16,15 @@ from rugby.models import Match
 
 
 enddate = datetime.today()
-startdate = enddate - timedelta(days=10)
+startdate = enddate - timedelta(days=10000)
 
 print(startdate,enddate)
-matches = Match.objects.filter(video_link_found=0,date__range=[startdate, enddate])
+matches = Match.objects.filter(video_link_found=0,video_not_found=0,date__range=[startdate, enddate])
 
 for match in matches:
 
     start_time_period = match.date - timedelta(days=1)
-    end_time_period = match.date + timedelta(days=5)
+    end_time_period = match.date + timedelta(days=10)
 
     print(end_time_period)
 
@@ -49,4 +49,8 @@ for match in matches:
         print("Found: " + str(match))
         match.save()
     else:
+        match.video_not_found = 1
+        match.save()
         print("Didn't Find: " + str(match))
+
+    time.sleep(10)

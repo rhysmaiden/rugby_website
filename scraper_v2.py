@@ -26,7 +26,7 @@ def make_soup(url):
 	soupdata = BeautifulSoup(thepage, "html.parser")
 	return soupdata
 
-for i in range(0,7):
+for i in range(0,10000):
 
     try:
 
@@ -63,7 +63,7 @@ for i in range(0,7):
 
     		if len(existing) > 0:
     			if abs(existing[0].date - date) < timedelta(days=4):
-    				print("EXISTS: ",team_one,team_two)
+    				#print("EXISTS: ",team_one,team_two)
     				continue
 
     		print("NEW: ",team_one,team_two)

@@ -42,6 +42,7 @@ class Match(models.Model) :
     video_sliced = models.IntegerField(default=0)
     match_completely_processed = models.IntegerField(default=0)
     error = models.IntegerField(default=0)
+    video_not_found = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.home_team.team_name) + " vs " + str(self.away_team.team_name) + " - " + str(self.date.date()) + " (" + str(self.error) + ")"
