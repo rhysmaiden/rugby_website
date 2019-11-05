@@ -13,11 +13,42 @@
       gtag('config', 'UA-150979790-1');
     </script>
 
+    <script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '961324594215213',
+	      cookie     : true,
+	      xfbml      : true,
+	      version    : 'v5.0'
+	    });
+	      
+	    FB.AppEvents.logPageView();   
+	      
+	  };
+
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "https://connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	
+
 	<title>The Rugby Vault</title>
 
 
 	<meta charset="utf-8" />
 	{% load staticfiles %}
+	{% load static %}
+	{% load socialaccount %}
+	{% load ratings %}
+	
+
+	<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+	<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 
 	<link rel="stylesheet" href="{% static 'rugby/css/bootstrap.min.css' %}" type = "text/css"/>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -99,6 +130,11 @@
       <li><a class="nav-it" style="text-decoration:none !important" href="/league/3/">International</a></li>
       <li><a class="nav-it" style="text-decoration:none !important" href="/league/1/">Super Rugby</a></li>
       <li><a class="nav-it" style="text-decoration:none !important" href="/league/2/">Aviva Premiership</a></li>
+      {% if user.is_anonymous %}
+      	<li><a class="nav-it" style="text-decoration:none !important" href="{% provider_login_url "google" %}">Login</a></li>
+      {% else %} 
+      	<li><a class="nav-it" style="text-decoration:none !important" href="/accounts/logout">Logout</a></li>
+      {% endif %}
          </ul>
 
 
@@ -140,6 +176,7 @@
 
 
 		  	<h7 style="margin-top:10px"><b>International</b></h7>
+		  	
 		  	<div class="collection">
 		  	    <a href="/team/48" class="collection-item">Argentina</a>
 		  	    <a href="/team/47" class="collection-item">Australia</a>

@@ -12,6 +12,9 @@ from .forms import SubmitUrlForm
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.db.models import Q
+from star_ratings import app_settings, get_star_ratings_rating_model
+from django.contrib.auth.models import User
+
 
 class templateInfo:
     player_name = ""
@@ -295,6 +298,18 @@ def prepareTryData(player_request=None, match_request=None, team_request=None, l
 
 def prepareMatchData(player_request=None, match_request=None, team_request=None, league_request=None):
 
+    
+
+    print(dir(Match.objects.all()[0].ratings))
+
+
+
+    my_user = User.objects.filter(username='Testuser')[0]
+
+    # get_star_ratings_rating_model().objects.rate(Match.objects.all()[0], 1, my_user, 'http://127.0.0.1:8000/')
+
+    # print(get_star_ratings_rating_model().objects.ratings_for_instance(Match.objects.all()[0]).average)
+
     matches = []
 
     if match_request is not None:
@@ -327,6 +342,7 @@ def prepareMatchData(player_request=None, match_request=None, team_request=None,
         matchBlock.home_link = "/team/" + str(m.home_team.id)
         matchBlock.away_link = "/team/" + str(m.away_team.id)
         matchBlock.date = m.date.date()
+        matchBlock.average_rating = round(get_star_ratings_rating_model().objects.ratings_for_instance(m).average,1)
 
     return matches_for_template
 

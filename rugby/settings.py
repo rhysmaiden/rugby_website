@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
      'allauth.socialaccount.providers.google',
      'allauth.socialaccount.providers.reddit',
+     'star_ratings'
 ]
 
 MIDDLEWARE = [
@@ -141,5 +142,15 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = '/home/rhysmaiden/rugby_website/rugby/static/'
 
-SITE_ID = 1
+SITE_ID = 2
+
+LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_LOGOUT_ON_GET = True 
+
+STAR_RATINGS_RERATE = True
+
+STAR_RATINGS_ANONYMOUS = True
+
+#TAR_RATINGS_RATING_MODEL = 'rugby.Match'
 

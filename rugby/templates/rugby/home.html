@@ -5,6 +5,8 @@
 
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 
 {% if title|length > 0 %}
@@ -46,6 +48,19 @@
  </nav>
  <div class="col-lg-3"></div>
  </div>
+
+ <style>
+ .checked {
+  color: orange;
+
+}
+
+ .no_rating {
+  opacity:0.5;
+  color:grey;
+ }
+
+</style>
 
 
 
@@ -230,6 +245,9 @@ h2 {
     margin:0px !important;
 }
 
+.rate:hover {
+  color:yellow;
+}
 
 
 
@@ -250,12 +268,33 @@ h2 {
                   <div style="padding: 1%; ">
                       <p class="info1" style="font-size:14pt">{{matches.0.home_team}} vs {{matches.0.away_team}}</p>
                       <p class="info2" style="font-size:12pt; color:grey">{{matches.0.date}}</p>
+                      
+                      <span class="fa fa-star no_rating"></span>
+                      <span class="fa fa-star no_rating"></span>
+                      <span class="fa fa-star no_rating"></span>
+                      <span class="fa fa-star no_rating"></span>
+                      <span class="fa fa-star no_rating"></span>
+                      <span class="fa no_rating rating-text"><p>{{matches.0.average_rating}}</p></span>
+                      <p></p>
+
                   </div>
                 </div>
-                <div class="col-lg-12" style="padding: 1%;">
+                <div class="col-9" style="padding: 1%;">
+                    <p>{{matches.0.ratings}}</p>
                     <a href="{{matches.0.match_link}}" class="waves-effect waves-light btn match-link b1" style="background-color: #3c6291; color:white">View Match Page</a>
                     <a href="{{matches.0.home_link}}" class="waves-effect waves-light btn home-team b2" style="background-color: #3c6291; color:white">{{matches.0.home_team}}</a>
                     <a href="{{matches.0.away_link}}" class="waves-effect waves-light btn away-team b3" style="background-color: #3c6291; color:white">{{matches.0.away_team}}</a>
+                    
+                </div>
+                <div class="col-3 align-bottom" style="padding-top:10px">
+
+                
+                    <span class="fa fa-star fa-lg no_rating rate"></span>
+                    <span class="fa fa-star fa-lg no_rating rate"></span>
+                    <span class="fa fa-star fa-lg no_rating rate"></span>
+                    <span class="fa fa-star fa-lg no_rating rate"></span>
+                    <span class="fa fa-star fa-lg no_rating rate"></span>
+
                 </div>
 
                 </div>
@@ -317,6 +356,7 @@ h2 {
             {% else %}
             <img class="vid-pic" onclick="changeVid(true,'{{m.video_link}}','{{m.home_team}} vs {{m.away_team}}','{{m.match_link}}','{{m.home_team}}','{{m.home_link}}','{{m.away_team}}','{{m.away_link}}',this)" src="{{m.pic}}" style="width:100%; cursor: pointer;"></img>
             {% endif %}
+
             <p style="font-size:11pt; margin:0">{{m.home_team}} vs {{m.away_team}}</p>
             <p style="font-size:10pt; color:grey">{{m.date}}</p>
         </div>

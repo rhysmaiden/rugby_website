@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericRelation
+from star_ratings.models import Rating
 
 def make_soup(url):
     thepage = urllib.request.urlopen(url)
@@ -43,6 +45,7 @@ class Match(models.Model) :
     match_completely_processed = models.IntegerField(default=0)
     error = models.IntegerField(default=0)
     video_not_found = models.IntegerField(default=0)
+    ratings = GenericRelation(Rating, related_query_name='foos')
 
     def __str__(self):
         return str(self.home_team.team_name) + " vs " + str(self.away_team.team_name) + " - " + str(self.date.date()) + " (" + str(self.error) + ")"
@@ -73,5 +76,10 @@ class Try(models.Model) :
 
     def __str__(self):
         return str(self.player) + " in " + str(self.match)
+
+class MatchRating(models.Model) :
+    match = models.ForeignKey(Match, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+
 
 
