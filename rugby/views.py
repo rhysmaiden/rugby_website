@@ -60,11 +60,13 @@ class TeamView(DetailView):
         my_context["tries"] = prepareTryData(team_request=individual_team)
         my_context["matches"] = prepareMatchData(team_request=individual_team)
         my_context["title"] = individual_team.team_name
-
         my_context["players"] = Player.objects.filter(Q(team=individual_team) | Q(internation_team=individual_team))
         my_context["search_results"] = prepareSearchData()
         my_context["try_count"].append(str(len(Try.objects.all())))
         my_context["logo"] = individual_team.logo
+
+    def get (self,request,*args,**kwargs):
+        pass
 
         #Send to template
         return my_context
@@ -298,11 +300,6 @@ def prepareTryData(player_request=None, match_request=None, team_request=None, l
 
 def prepareMatchData(player_request=None, match_request=None, team_request=None, league_request=None):
 
-    
-
-    print(dir(Match.objects.all()[0].ratings))
-
-
 
     my_user = User.objects.filter(username='Testuser')[0]
 
@@ -319,7 +316,7 @@ def prepareMatchData(player_request=None, match_request=None, team_request=None,
     elif league_request is not None:
         matches = Match.objects.filter(league_id=league_request,error=0).order_by('-date')[:8]
     else:
-        matches = Match.objects.filter(error=0,match_completely_processed=1).order_by('-date')[:8]
+        matches = Match.objects.filter(error=0,match_completely_processed=1).order_by('-date')[:12]
 
 
     matches_for_template = []

@@ -1,22 +1,135 @@
 {% extends "rugby/header.html" %}
-
 {% block content %}
-
 
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<style>
+
+/* ================
+   global styles
+   ================ */
+
+nav {
+  margin-bottom:20px !important;
+  padding:0px;
+}
+
+.page-title img {
+  height:100px
+}
+
+/* ================
+   typography
+   ================ */
+
+h2 {
+    font-family:Arvo;
+    margin:0px !important;
+    padding:20px
+}
+
+/* ================
+   components
+   ================ */
+
+/* iFrame */
+
+ .ui-helper-hidden-accessible { display:none; }
+
+.aspect-ratio {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56%; 
+}
+
+.aspect-ratio iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+/* Ratings*/
+
+.checked {
+  color: orange;
+}
+
+ .no_rating {
+  opacity:0.5;
+  color:grey;
+ }
+
+ .rate:hover {
+  color:yellow;
+}
+
+/* Search Menu */
+
+.search-bar {
+  background-color: white
+}
+
+.ui-menu-item {
+    background-color:white;
+    padding:5px;
+    cursor: pointer;
+}
+
+.ui-menu-item:hover {
+    background-color:#fafafa;
+    color:black;
+}
+
+.ui-corner-all {
+    color:black !important;
+    text-decoration: none !important;
+}
+
+.ui-menu {
+    width:200px;
+}
+
+.ui-autocomplete { max-height: 200px; overflow-y: auto; overflow-x: hidden;}
+
+
+/* Video tiles */
+
+.vid-pic:hover {
+    box-shadow:0px 1px 1px 1px #333;
+}
+
+#active {
+    border: 4px solid black;
+  outline-style: solid;
+  outline-color: #91413c;
+}
+
+.player-team-buttons {
+  background-color: #3c6291;
+  color:white
+}
+
+</style>
+
+
+<!-- ================
+     Title
+     ================ -->
 
 
 {% if title|length > 0 %}
-<div class="row">
+<div class="row page-title">
 
 {% if page == "Team" %}
-<img style="height:100px" src="{{logo}}">
-{% endif %}
-<h2 style="padding:20px">{{title}}</h2>
 
+  <img src="{{logo}}">
+  {% endif %}
+  <h2>{{title}}</h2>
 
 </div>
 {% else %}
@@ -26,8 +139,15 @@
 
 </div>
 {% endif %}
+
+
+<!-- ================
+     Search Bar
+     ================ -->
+
+
 <div class="row">
-<nav style="margin-bottom:20px !important; background-color:white !important; padding:0px" class="col-lg-9">
+<nav class="col-lg-9 search-bar">
     <div class="nav-wrapper" style="background-color:white">
       <form>
 
@@ -49,26 +169,13 @@
  <div class="col-lg-3"></div>
  </div>
 
- <style>
- .checked {
-  color: orange;
 
-}
-
- .no_rating {
-  opacity:0.5;
-  color:grey;
- }
-
-</style>
-
-
-
+<!-- ================
+     Player teams
+     ================ -->
 
 {% for team in teams %}
-
-<a href="/team/{{team.id}}" class="waves-effect waves-light btn away-team b3" style="background-color: #3c6291; color:white">{{team.team_name}}</a>
-
+<a href="/team/{{team.id}}" class="waves-effect waves-light btn away-team b3 player-team-buttons">{{team.team_name}}</a>
 {% endfor %}
 
 
@@ -167,97 +274,13 @@ var data_id = {};
 });
 
 </script>
-<style>
 
-.ui-helper-hidden-accessible { display:none; }
-
-.aspect-ratio {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56%; /* The height of the item will now be 56% of the width. */
-}
-
-/* Adjust the iframe so it's rendered in the outer-width and outer-height of it's parent */
-.aspect-ratio iframe {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-}
-
-.ui-menu-item {
-    background-color:white;
-    padding:5px;
-    cursor: pointer;
-}
-
-.ui-menu-item:hover {
-    background-color:#fafafa;
-    color:black;
-}
-
-.ui-corner-all {
-    color:black !important;
-    text-decoration: none !important;
-}
-
-.ui-menu {
-    width:200px;
-}
-
-.ui-autocomplete { max-height: 200px; overflow-y: auto; overflow-x: hidden;}
-
-.vid-pic:hover {
-    box-shadow:0px 1px 1px 1px #333;
-}
-
-#active {
-    border: 4px solid black;
-  outline-style: solid;
-  outline-color: #91413c;
-}
-
-#clockdiv{
-  font-family: sans-serif;
-  color: #fff;
-  display: inline-block;
-  font-weight: 100;
-  text-align: center;
-  font-size: 18px;
-}
-
-#clockdiv > div{
-  padding: 0px;
-  border-radius: 3px;
-  background: #3c6291;
-}
-
-#clockdiv div > span{
-  padding: 10px;
-  border-radius: 3px;
-  background: #3c6291;
-}
-
-h2 {
-    font-family:Arvo;
-    margin:0px !important;
-}
-
-.rate:hover {
-  color:yellow;
-}
-
-
-
-</style>
 
 <div class="row" style="margin:0px">
 
 {% if matches|length > 0 %}
 
-<div class="card-col-md-8 card col-lg-8" style="padding:0 !important">
+<div class="card-col-md-8 card col-lg-8" style="padding:0 !important; display: none">
         <div class="card-content" style="padding:0">
             <div class="aspect-ratio">
                 <iframe class="main-player" id="d-youtube-player main-player" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player" width="100vw" height="56.25vw" src="{{ matches.0.video_link }}?&amp;showinfo=0&amp;color=white&amp;iv_load_policy=3&amp;autoplay=0&amp;modestbranding=1&amp;enablejsapi=1&amp;origin=http%3A%2F%2Ffreegifmaker.me&amp;widgetid=1"></iframe>
@@ -299,8 +322,8 @@ h2 {
 
                 </div>
           </div>
-        </div>
-</div>
+        
+
 
 {% else %}
 
@@ -337,6 +360,8 @@ h2 {
 
 {% endif %}
 
+</div>
+
 
 <div class="divider"></div>
 
@@ -347,24 +372,20 @@ h2 {
 <h5>Match Highlights</h5>
 {% endif %}
 
-<div class="row">
+<div class="row matches">
   {% for m in matches %}
     <div class=" col-md-3 col-lg-3 col-x" style="padding:0;" id="{{m.id}}">
         <div class="card-content" style="padding-right:12px !important">
-            {% if forloop.first %}
-            <img id="active" class="vid-pic" onclick="changeVid(true,'{{m.video_link}}','{{m.home_team}} vs {{m.away_team}}','{{m.match_link}}','{{m.home_team}}','{{m.home_link}}','{{m.away_team}}','{{m.away_link}}')" src="{{m.pic}}" style="width:100%; cursor: pointer;"></img>
-            {% else %}
+            
             <img class="vid-pic" onclick="changeVid(true,'{{m.video_link}}','{{m.home_team}} vs {{m.away_team}}','{{m.match_link}}','{{m.home_team}}','{{m.home_link}}','{{m.away_team}}','{{m.away_link}}',this)" src="{{m.pic}}" style="width:100%; cursor: pointer;"></img>
-            {% endif %}
-
-            <p style="font-size:11pt; margin:0">{{m.home_team}} vs {{m.away_team}}</p>
-            <p style="font-size:10pt; color:grey">{{m.date}}</p>
+            <p class="video-heading" style="font-size:11pt; margin:0">{{m.home_team}} vs {{m.away_team}}</p>
+            <p class="video-subheading" style="font-size:10pt; color:grey">{{m.date}}</p>
         </div>
-
-
     </div>
   {% endfor %}
 </div>
+
+
 <div class="divider"></div>
 
 <h5>Recent Tries</h5>
